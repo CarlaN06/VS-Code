@@ -1,0 +1,192 @@
+:root {
+  --fond: #1a1230;        /* violet très sombre */
+  --texte: #f1ecfa;
+  --principale: #3b2370;  /* violet de l'en-tête */
+  --accent: #ff7eb6;      /* rose */
+  --claire: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Georgia, "Times New Roman", serif;
+  background: var(--fond);
+  color: var(--texte);
+  line-height: 1.6;
+}
+
+/* En-tête */
+header {
+  background: var(--principale);
+  color: var(--claire);
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 3px solid var(--accent);
+}
+
+nav a {
+  color: var(--claire);
+  text-decoration: none;
+  margin-left: 1.25rem;
+}
+
+nav a:hover,
+nav a:focus {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+/* Contenu principal */
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+main a {
+  color: var(--accent);
+}
+
+section {
+  margin-bottom: 3rem;
+}
+
+h2 {
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+
+/* Cartes d'humeurs (ce sont des boutons) */
+.cartes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.humeur {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-align: left;
+  padding: 1.25rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--texte);
+  background: #261a45;
+  border: 2px solid transparent;
+  border-top: 5px solid var(--couleur);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.humeur strong {
+  font-size: 1.15rem;
+}
+
+.emoji {
+  font-size: 1.8rem;
+}
+
+.humeur:hover,
+.humeur:focus-visible {
+  background: #33245b;
+}
+
+.humeur[aria-pressed="true"] {
+  background: #33245b;
+  border-color: var(--couleur);
+}
+
+/* Musique affichée sous les humeurs */
+.liste {
+  list-style: none;
+}
+
+.liste li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  background: #261a45;
+  border-left: 5px solid var(--couleur);
+  border-radius: 6px;
+}
+
+.liste li span {
+  flex: 1;
+}
+
+.liste li a {
+  white-space: nowrap;
+}
+
+/* Pied de page */
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.9rem;
+  color: #a99cc7;
+}
+
+/* Fenêtre de contact */
+dialog {
+  margin: auto;
+  padding: 2rem;
+  max-width: 420px;
+  width: calc(100% - 2rem);
+  background: #f4effc;
+  color: #231a3d;
+  border: 3px solid var(--accent);
+  border-radius: 10px;
+  text-align: center;
+}
+
+dialog::backdrop {
+  background: rgba(10, 6, 20, 0.8);
+}
+
+dialog h2 {
+  color: var(--principale);
+}
+
+dialog p {
+  margin-bottom: 0.75rem;
+}
+
+dialog a {
+  color: var(--principale);
+  font-weight: bold;
+  word-break: break-all;
+}
+
+.fermer {
+  margin-top: 0.5rem;
+  padding: 0.6rem 1.3rem;
+  background: var(--principale);
+  color: var(--claire);
+  border: none;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.fermer:hover,
+.fermer:focus {
+  background: #2a1852;
+}

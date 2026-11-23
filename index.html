@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mood Music</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Mood Music</h1>
+    <nav>
+      <a href="#contact" data-contact>Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Présentation -->
+    <section id="presentation">
+      <h2>Quelle est ton humeur aujourd'hui ?</h2>
+      <p>
+        En fonction de ton humeur, voici différentes musiques que tu peux écouter pour t'y accompagner!
+      </p>
+    </section>
+
+    <!-- Choix de l'humeur -->
+    <section id="humeurs">
+      <h2>Mes humeurs</h2>
+      <div class="cartes" id="boutons-humeurs"></div>
+    </section>
+
+    <!-- Musique affichée selon l'humeur -->
+    <section id="top" aria-live="polite">
+      <h2 id="titre-top">Choisis une humeur ci-dessus</h2>
+      <ul id="liste-top" class="liste"></ul>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Une suggestion ? Écris-moi à : <a href="mailto:carla.nurit@alumni.univ-avignon.fr">carla.nurit@alumni.univ-avignon.fr</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 – Fait avec HTML, CSS et JavaScript</p>
+  </footer>
+
+  <!-- Fenêtre de contact -->
+  <dialog id="fenetre-contact" aria-labelledby="titre-contact">
+    <h2 id="titre-contact">Contact</h2>
+    <p>Tu peux m'écrire à cette adresse :</p>
+    <p><a href="mailto:carla.nurit@alumni.univ-avignon.fr">carla.nurit@alumni.univ-avignon.fr</a></p>
+    <button type="button" class="fermer" id="fermer-contact">Fermer</button>
+  </dialog>
+
+  <script>
+    // Les humeurs et leur musique : modifie-les avec tes propres choix !
+    const humeurs = [
+      {
+        nom: "Énergique",
+        emoji: "⚡",
+        description: "Pour le sport, la motivation, les grosses journées.",
+        couleur: "#ef5350",
+        titre: "Eye of the Tiger",
+        artiste: "Survivor"
+      },
+{
+  nom: "Mélancolie",
+  emoji: "😢",
+  description: "Pour laisser couler les émotions.",
+  couleur: "#6fa8dc",
+  titre: "Somewhere Only We Know",
+  artiste: "Keane",
+  lien: "https://www.youtube.com/watch?v=COLLE-ICI-L-ADRESSE"
+},
+{
+  nom: "Chill / Détente",
+  emoji: "🌿",
+  description: "Pour respirer, lire ou se détendre tranquillement.",
+  couleur: "#7bc8a4",
+  titre: "Weightless",
+  artiste: "Marconi Union",
+  lien: "https://www.youtube.com/watch?v=qYnA9wWFHLI"
+}
+    ];
+
+    const zoneBoutons = document.getElementById("boutons-humeurs");
+    const titreTop = document.getElementById("titre-top");
+    const listeTop = document.getElementById("liste-top");
+
+    // Crée un bouton pour chaque humeur
+    humeurs.forEach(function (humeur) {
+      const bouton = document.createElement("button");
+      bouton.type = "button";
+      bouton.className = "humeur";
+      bouton.style.setProperty("--couleur", humeur.couleur);
+      bouton.setAttribute("aria-pressed", "false");
+      bouton.innerHTML =
+        '<span class="emoji" aria-hidden="true">' + humeur.emoji + "</span>" +
+        "<strong>" + humeur.nom + "</strong>" +
+        "<span>" + humeur.description + "</span>";
+
+      bouton.addEventListener("click", function () {
+        afficherMusique(humeur, bouton);
+      });
+      zoneBoutons.appendChild(bouton);
+    });
+
+    // Affiche la musique de l'humeur choisie
+    function afficherMusique(humeur, boutonActif) {
+      document.querySelectorAll(".humeur").forEach(function (b) {
+        b.setAttribute("aria-pressed", b === boutonActif ? "true" : "false");
+      });
+
+      titreTop.textContent = "Ma musique – " + humeur.nom + " " + humeur.emoji;
+      listeTop.style.setProperty("--couleur", humeur.couleur);
+
+      const recherche = encodeURIComponent(humeur.titre + " " + humeur.artiste);
+      listeTop.innerHTML =
+        "<li><span><strong>" + humeur.titre + "</strong> – " + humeur.artiste + "</span>" +
+        '<a href="https://www.youtube.com/results?search_query=' + recherche +
+        '" target="_blank" rel="noopener">Écouter</a></li>';
+    }
+
+    // Fenêtre de contact
+    const fenetre = document.getElementById("fenetre-contact");
+
+    document.querySelectorAll("[data-contact]").forEach(function (lien) {
+      lien.addEventListener("click", function (e) {
+        e.preventDefault();
+        fenetre.showModal();
+      });
+    });
+
+    document.getElementById("fermer-contact").addEventListener("click", function () {
+      fenetre.close();
+    });
+
+    fenetre.addEventListener("click", function (e) {
+      if (e.target === fenetre) {
+        fenetre.close();
+      }
+    });
+  </script>
+
+</body>
+</html>
